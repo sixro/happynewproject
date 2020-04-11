@@ -10,4 +10,8 @@ public class CashTest {
         assertEquals(new Cash(5), new Cash("€5"));
     }
 
+    @Test public void textual_representation() {
+        assertEquals("€5", new Cash(5).toString());
+    }
+
 }
