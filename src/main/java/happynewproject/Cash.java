@@ -2,14 +2,27 @@ package happynewproject;
 
 import java.util.Objects;
 
-public class Cash {
+/**
+ * Represents cash.
+ */
+public final class Cash {
 
     private final int euro;
 
+    /**
+     * Create cash using text like {@code €5}.
+     *
+     * @param euroAsText euro as text
+     */
     public Cash(String euroAsText) {
         this(Cash.parse(euroAsText));
     }
 
+    /**
+     * Create cash of specified euro.
+     *
+     * @param euro some euro
+     */
     public Cash(int euro) {
         this.euro = euro;
     }
