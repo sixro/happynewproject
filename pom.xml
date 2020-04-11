@@ -6,6 +6,9 @@
     <artifactId>happynewproject</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
+    <name>Happy New Project</name>
+    <description>A template for new projects</description>
+    <url>https://github.com/sixro/happynewproject</url>
     <!--
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -25,6 +28,41 @@
             <start-class>happynewproject.Main</start-class>
           -->
     </properties>
+
+    <developers>
+        <developer>
+            <name>Sixro</name>
+            <email>me@sixro.net</email>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>The MIT license</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:ssh://git@github.com/sixro/happynewproject.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/sixro/happynewproject.git</developerConnection>
+        <url>git@github.com:sixro/happynewproject.git</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <!-- Needed if the project is hosted on Sonatype Maven Central -->
+    <!--
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+      -->
 
     <dependencies>
         <!-- Testing -->
@@ -134,6 +172,62 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <useReleaseProfile>true</useReleaseProfile>
+                    <releaseProfiles>release</releaseProfiles>
+                    <goals>deploy</goals>
+                </configuration>
+            </plugin>
+
+            <!-- Needed when project is hosted on Sonatype Maven Central -->
+            <!--
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+              -->
+
             <!--
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -157,4 +251,33 @@
               -->
         </plugins>
     </build>
+
+    <!--
+        This is useful when the project is hosted on Sonatype maven central
+      -->
+    <!--
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    -->
 </project>

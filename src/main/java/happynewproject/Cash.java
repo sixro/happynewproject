@@ -14,10 +14,6 @@ public class Cash {
         this.euro = euro;
     }
 
-    private static int parse(String euroAsText) {
-        return Integer.parseInt(euroAsText.substring(1));
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -35,4 +31,9 @@ public class Cash {
     public String toString() {
         return "€" + euro;
     }
+
+    private static int parse(String euroAsText) {
+        return Integer.parseInt(euroAsText.substring(1));
+    }
+
 }
