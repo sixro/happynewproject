@@ -64,6 +64,16 @@
       -->
 
     <dependencies>
+        <!-- Reduce useless editing -->
+        <!--
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+            <scope>provided</scope>
+        </dependency>
+          -->
+
         <!-- Testing -->
         <dependency>
             <groupId>junit</groupId>
@@ -226,6 +236,9 @@
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <version>2.7</version>
                 <configuration>
+                    <check>
+                        <haltOnFailure>false</haltOnFailure>
+                    </check>
                     <format>xml</format>
                     <maxmem>256m</maxmem>
                     <!-- aggregated reports for multi-module projects -->
