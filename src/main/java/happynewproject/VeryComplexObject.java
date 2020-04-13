@@ -1,34 +1,49 @@
 package happynewproject;
 
-import java.time.LocalDate;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Objects;
-
-import static java.time.LocalDate.parse;
 
 /**
  * An example.
  */
 public final class VeryComplexObject {
 
-    private static final LocalDate THRESHOLD_DATE = parse("2020-02-01");
-    public static final int A = 1;
-    public static final int B = 2;
-    public static final int C = 3;
-    public static final int D = 4;
-    public static final int E = 5;
+    private static final int A = 1;
+    private static final int B = 2;
+    private static final int C = 3;
+    private static final int D = 4;
 
     private final int a;
     private final int b;
     private final int c;
     private final int d;
-    private final int e;
-    private final LocalDate time;
+    private final Appendable append;
 
     /**
      * ctor.
+     *
+     * @throws FileNotFoundException when default file is not available
+     * @throws UnsupportedEncodingException when UTF-8 is not supported
      */
-    public VeryComplexObject() {
-        this(A, B, C, D, E, LocalDate.now());
+    public VeryComplexObject()
+            throws FileNotFoundException, UnsupportedEncodingException {
+        this(
+            A,
+            B,
+            C,
+            D,
+            new PrintWriter(
+                new File(
+                    System.getProperty("java.io.tmpdir"),
+                    "text.txt"
+                ),
+                "UTF-8"
+            )
+        );
     }
 
     /**
@@ -37,30 +52,27 @@ public final class VeryComplexObject {
      * @param b b
      * @param c c
      * @param d d
-     * @param e e
-     * @param time time to use
+     * @param append an appendable
      */
-    public VeryComplexObject(int a, int b, int c, int d, int e,
-                             LocalDate time) {
+    public VeryComplexObject(int a, int b, int c, int d, Appendable append) {
         this.a = a;
         this.b = b;
         this.c = c;
         this.d = d;
-        this.e = e;
-        this.time = time;
+        this.append = append;
     }
 
     /**
      * Execute this.
+     *
+     * @throws IOException if nothing can be written
      */
-    public void run() {
+    public void run() throws IOException {
         if (a == A) {
-            if (b * C < e) {
-                if (c + d == b + e) {
+            if (b * C < d) {
+                if (c + d == b + d) {
                     if (c > d) {
-                        if (time.isAfter(THRESHOLD_DATE)) {
-                            System.out.println("Hello world!");
-                        }
+                        append.append("Hello world!");
                     }
                 }
             }
@@ -72,17 +84,26 @@ public final class VeryComplexObject {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VeryComplexObject that = (VeryComplexObject) o;
-        int f = -1;
-        return f == that.a
-                && b == that.b
-                && c == that.c
-                && d == that.d
-                && e == that.e
-                && Objects.equals(time, that.time);
+        return a == that.a &&
+                b == that.b &&
+                c == that.c &&
+                d == that.d &&
+                Objects.equals(append, that.append);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(a, b, c, d, e, time);
+        return Objects.hash(a, b, c, d, append);
+    }
+
+    @Override
+    public String toString() {
+        return "VeryComplexObject{" +
+                "a=" + a +
+                ", b=" + b +
+                ", c=" + c +
+                ", d=" + d +
+                ", appendable=" + append +
+                '}';
     }
 }

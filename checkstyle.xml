@@ -90,10 +90,10 @@
         <module name="InvalidJavadocPosition"/>
         <module name="JavadocMethod"/>
         <module name="JavadocType"/>
-        <!-- CUSTOM: because variables are hidden, Javadoc is not needed -->
-        <!--
-        <module name="JavadocVariable"/>
-          -->
+        <!-- CUSTOM: Javadoc is needed only on public variables -->
+        <module name="JavadocVariable">
+            <property name="scope" value="public"/>
+        </module>
         <module name="JavadocStyle"/>
         <module name="MissingJavadocMethod"/>
 
@@ -130,7 +130,9 @@
         <module name="MethodParamPad"/>
         <module name="NoWhitespaceAfter"/>
         <module name="NoWhitespaceBefore"/>
+        <!-- CUSTOM: disabled because it requires to change IDE formatting rules... and I am lazy
         <module name="OperatorWrap"/>
+          -->
         <module name="ParenPad"/>
         <module name="TypecastParenPad"/>
         <module name="WhitespaceAfter"/>
