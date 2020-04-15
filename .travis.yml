@@ -1,6 +1,7 @@
 dist: trusty
 
 language: java
+script: mvn verify -B
 
 after_success:
-  - mvn clean cobertura:cobertura coveralls:report
+  - mvn clean verify jacoco:report coveralls:report
